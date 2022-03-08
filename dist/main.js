@@ -116,7 +116,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\n//# sourceURL=webpack://2nd-capstone-project/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\nconst Pokemons = ['pikachu', 'bulbasaur'];\n\nclass Pokemon {\n  constructor (pokemon_name) {\n    this.pokemon_name = pokemon_name;\n    this.url = `https://pokeapi.co/api/v2/pokemon/${this.pokemon_name}`;\n  }\n\n  async fetchPokemon() {\n    const response = await fetch(this.url)\n      .then((response) => response.json)\n      .then((response) => console.log(response.json));\n    return response;\n  }\n}\n\nPokemons.forEach((pokemon) => {\n  const pokemonObj = new Pokemon(pokemon);\n  pokemonObj.fetchPokemon();\n});\n\n//# sourceURL=webpack://2nd-capstone-project/./src/index.js?");
 
 /***/ })
 

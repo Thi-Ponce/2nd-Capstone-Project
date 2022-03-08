@@ -4,17 +4,24 @@ export default class Pokemon {
     this.url = `https://pokeapi.co/api/v2/pokemon/${this.pokemonName}`;
     this.likesUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/likes/';
     this.commentsUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/comments/';
-    this.picture = this.fetchPokemon().sprites.front_default;
-    this.weight = this.fetchPokemon().weight;
-    this.types = this.fetchPokemon().types;
+    this.picture = '';
+    this.weight = 0;
+    this.types = [];
     this.likes = 0;
     this.comments = {};
   }
 
   async fetchPokemon() {
-    const response = await fetch(this.url)
-      .then((response) => response.json());
-    return response;
+    await fetch(this.url)
+      .then((response) => {
+        response.json().then((data) => {
+          console.log(data);
+          this.picture = data.sprites.front_default;
+          this.weight = data.weight;
+          this.types = data.types;
+          console.log(this);
+        });
+      });
   }
 
   async fetchLikes() {

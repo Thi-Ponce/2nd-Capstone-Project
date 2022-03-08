@@ -13,8 +13,8 @@ export default class Pokemon {
 
   async fetchPokemon() {
     await fetch(this.url)
-      .then((response) => {
-        response.json().then((data) => {
+      .then(async (response) => {
+        await response.json().then((data) => {
           this.picture = data.sprites.front_default;
           this.weight = data.weight;
           this.types = data.types;

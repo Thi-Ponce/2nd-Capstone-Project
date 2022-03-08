@@ -1,6 +1,6 @@
 import Pokemon from './pokemonClass.js';
 
-export class Popup extends Pokemon {
+export default class Popup extends Pokemon {
   constructor(pokemon) {
     super(pokemon);
     this.img = window.document.getElementById('pokemonImg');
@@ -11,22 +11,20 @@ export class Popup extends Pokemon {
     this.commentInput = window.document.getElementById('comment');
     this.userName = window.document.getElementById('userName');
   }
-}
 
-const popup = new Popup('pikachu');
-
-export async function populateHtml() {
-  await popup.fetchPokemon().then(async () => {
-    console.log(popup);
-    console.log(await popup.getWeight());
-    popup.title.innerText = popup.pokemonName;
-    popup.img.src = popup.picture;
-    popup.weightElement.innerText = `Weight: ${popup.weight}`;
-    popup.types.forEach((type) => {
-      const typeName = type.type.name;
-      const typeElemet = window.document.createElement('li');
-      typeElemet.innerText = typeName;
-      popup.typesElement.appendChild(typeElemet);
+  async populateHtml() {
+    await this.fetchPokemon().then(() => {
+      console.log(this);
+      console.log(this.weight);
+      this.title.innerText = this.pokemonName;
+      this.img.src = this.picture;
+      this.weightElement.innerText = `Weight: ${this.weight}`;
+      this.types.forEach((type) => {
+        const typeName = type.type.name;
+        const typeElement = window.document.createElement('li');
+        typeElement.innerText = typeName;
+        this.typesElement.appendChild(typeElement);
+      });
     });
-  });
+  }
 }

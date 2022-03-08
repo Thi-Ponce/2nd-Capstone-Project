@@ -15,13 +15,16 @@ export default class Pokemon {
     await fetch(this.url)
       .then((response) => {
         response.json().then((data) => {
-          console.log(data);
           this.picture = data.sprites.front_default;
           this.weight = data.weight;
           this.types = data.types;
-          console.log(this);
         });
       });
+  }
+
+  async getWeight() {
+    await this.fetchPokemon();
+    return this.weight;
   }
 
   async fetchLikes() {

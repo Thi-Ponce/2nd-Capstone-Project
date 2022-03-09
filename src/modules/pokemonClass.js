@@ -3,7 +3,7 @@ export default class Pokemon {
     this.pokemonName = pokemonName;
     this.url = `https://pokeapi.co/api/v2/pokemon/${this.pokemonName}`;
     this.likesUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/likes/';
-    this.commentsUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/comments/';
+    this.commentsUrl = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/comments?item_id=${this.pokemonName}`;
     this.picture = '';
     this.weight = 0;
     this.types = [];
@@ -57,12 +57,14 @@ export default class Pokemon {
   }
 
   async updateComments() {
-    this.comments = this.fetchComments();
+    this.comments = await this.fetchComments();
     return this.comments;
   }
 
   async postComment(username, comment) {
-    const body = { pokemonName: this.pokemonName, username, comment };
+    const body = {
+      item_id: this.pokemonName, username, comment,
+    };
     fetch(this.commentsUrl, {
       method: 'POST',
       headers: {
@@ -70,7 +72,6 @@ export default class Pokemon {
       },
       body: JSON.stringify(body),
     })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+      .then((response) => response.json());
   }
 }

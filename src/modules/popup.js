@@ -10,13 +10,17 @@ export default class Popup extends Pokemon {
     this.commentsDiv = window.document.getElementById('comments');
     this.commentInput = window.document.getElementById('comment');
     this.userName = window.document.getElementById('userName');
+    this.commentBtn = window.document.querySelector('#commentBtn');
     this.closeButton = window.document.getElementById('close');
     this.popup = window.document.querySelector('#popup');
   }
 
   async populateHtml() {
+    this.commentsDiv.innerHTML = '';
+    this.typesElement.innerHTML = '';
     await this.fetchPokemon().then(() => {
       this.title.innerText = this.pokemonName;
+      this.typesElement.innerHTML = '';
       this.img.src = this.picture;
       this.weightElement.innerText = `Weight: ${this.weight}`;
       this.types.forEach((type) => {
@@ -30,13 +34,10 @@ export default class Popup extends Pokemon {
       this.comments.forEach((comment) => {
         const userName = comment.username;
         const commentary = comment.comment;
-        const pokemon = comment.pokemonName;
-        if (pokemon === this.pokemonName) {
-          const text = `${userName}: ${commentary}`;
-          const li = document.createElement('li');
-          li.innerText = text;
-          this.commentsDiv.appendChild(li);
-        }
+        const text = `${userName}: ${commentary}`;
+        const li = document.createElement('li');
+        li.innerText = text;
+        if (userName !== '' && commentary !== '') this.commentsDiv.appendChild(li);
       });
     });
   }
@@ -60,5 +61,23 @@ export default class Popup extends Pokemon {
   countComments() {
     const count = this.updateComments().length;
     return count;
+  }
+
+  sendComment() {
+    this.commentInput = window.document.getElementById('comment');
+    this.userName = window.document.getElementById('userName');
+    const { userName, commentInput } = this;
+    const post = () => { this.postComment(userName.value, commentInput.value); };
+    const updateHtml = () => { this.populateHtml(); };
+    this.commentBtn.addEventListener('click', () => {
+      if (userName.value !== '' && commentInput.value !== '') {
+        post();
+        setTimeout(() => {
+          updateHtml();
+          userName.value = '';
+          commentInput.value = '';
+        }, 500);
+      }
+    });
   }
 }

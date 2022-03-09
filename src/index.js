@@ -11,3 +11,4 @@ Pokemons.forEach((pokemon) => {
 
 const pop = new Popup(Pokemons[0]);
 pop.populateHtml();
+pop.closePopup();

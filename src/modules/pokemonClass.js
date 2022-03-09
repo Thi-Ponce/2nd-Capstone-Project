@@ -58,6 +58,7 @@ export default class Pokemon {
 
   async updateComments() {
     this.comments = this.fetchComments();
+    return this.comments;
   }
 
   async postComment(username, comment) {

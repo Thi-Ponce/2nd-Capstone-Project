@@ -16,7 +16,11 @@ export default class Popup extends Pokemon {
   }
 
   async populateHtml() {
-    this.commentsDiv.innerHTML = '';
+    this.populateTypes();
+    this.populateComments();
+  }
+
+  async populateTypes() {
     this.typesElement.innerHTML = '';
     await this.fetchPokemon().then(() => {
       this.title.innerText = this.pokemonName;
@@ -30,6 +34,10 @@ export default class Popup extends Pokemon {
         this.typesElement.appendChild(typeElement);
       });
     });
+  }
+
+  async populateComments() {
+    this.commentsDiv.innerHTML = '';
     await this.updateComments().then(() => {
       this.comments.forEach((comment) => {
         const userName = comment.username;
@@ -67,16 +75,15 @@ export default class Popup extends Pokemon {
     this.commentInput = window.document.getElementById('comment');
     this.userName = window.document.getElementById('userName');
     const { userName, commentInput } = this;
-    const post = () => { this.postComment(userName.value, commentInput.value); };
-    const updateHtml = () => { this.populateHtml(); };
+    const post = async () => { await this.postComment(userName.value, commentInput.value); };
+    const updateHtml = async () => { await this.populateComments(); };
     this.commentBtn.addEventListener('click', () => {
       if (userName.value !== '' && commentInput.value !== '') {
         post();
-        setTimeout(() => {
-          updateHtml();
-          userName.value = '';
-          commentInput.value = '';
-        }, 500);
+        this.comments.push({ userName: userName.value, comment: commentInput.value });
+        updateHtml();
+        userName.value = '';
+        commentInput.value = '';
       }
     });
   }

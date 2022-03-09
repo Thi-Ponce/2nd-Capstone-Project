@@ -65,13 +65,13 @@ export default class Pokemon {
     const body = {
       item_id: this.pokemonName, username, comment,
     };
-    fetch(this.commentsUrl, {
+
+    return fetch(this.commentsUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    })
-      .then((response) => response.json());
+    });
   }
 }

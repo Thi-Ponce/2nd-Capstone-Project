@@ -1,3 +1,64 @@
+html,
 body {
-  background-color: aqua;
+  height: 100%;
+  width: 100%;
+}
+
+.header {
+  border-bottom: solid 1px rgb(0, 0, 0);
+}
+
+.container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-rows: 1fr;
+  width: 80%;
+  gap: 25px;
+  padding: 25px 0;
+}
+
+.card {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(211, 203, 203);
+  padding-bottom: 5px;
+  transition: 1s;
+  transform: scale(1);
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.sprite-container {
+  background-color: #fff;
+  border: 3px solid #000;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.likes-container {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.fa-heart {
+  transition: 0.3s;
+  transform: scale(1);
+}
+
+.fa-heart:hover {
+  color: rgb(255, 0, 0);
+  transform: scale(1.2);
 }

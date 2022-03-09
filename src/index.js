@@ -1,9 +1,4 @@
 import './style.css';
-import Pokemon from './modules/pokemonClass.js';
+import { fetchPokemon} from './modules/displayPokemon';
 
-const Pokemons = ['pikachu', 'bulbasaur'];
-
-Pokemons.forEach((pokemon) => {
-  const pokemonObj = new Pokemon(pokemon);
-  pokemonObj.fetchPokemon();
-});
+fetchPokemon();

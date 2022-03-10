@@ -65,11 +65,7 @@ export default class Popup extends Pokemon {
   }
 
   showPopup() {
-    const btn = this.closeButton;
-    const pop = this.popup;
-    btn.addEventListener('click', () => {
-      pop.style.display = 'block';
-    });
+    this.popup.style.display = 'block';
   }
 
   countComments() {

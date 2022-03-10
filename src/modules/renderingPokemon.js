@@ -41,6 +41,8 @@ export default function renderPokemon(pokeData) {
   commentButton.addEventListener('click', () => {
     const pop = new Popup(pokeData.name);
     pop.populateHtml();
+    pop.showPopup();
+    pop.closePopup();
   });
   pokeContainer.append(imageContainer, pokeName, pokeNumber, likesContainer, commentButton);
 

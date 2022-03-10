@@ -56,9 +56,14 @@ body {
 .fa-heart {
   transition: 0.3s;
   transform: scale(1);
+  perspective: 1000px;
 }
 
 .fa-heart:hover {
   color: rgb(255, 0, 0);
   transform: scale(1.2);
+}
+
+.fa-heart:active {
+  transform: rotateY(180deg);
 }

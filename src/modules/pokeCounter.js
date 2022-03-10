@@ -5,6 +5,6 @@ export default async function pokeCounter() {
      .then(function(allpokemon) {
         const counter = allpokemon.results.length;
         const pokeCounter = document.querySelector('.pokeCounter');
-        pokeCounter.innerHTML = counter;
+        pokeCounter.innerHTML = `${counter} pokemon displayed`;
          });    
      }

@@ -1,15 +1,8 @@
 import './style.css';
-import Pokemon from './modules/pokemonClass.js';
-import Popup from './modules/popup.js';
+import { fetchPokemon } from './modules/displayPokemon';
+import pokeCounter from './modules/pokeCounter';
 
-const Pokemons = ['pikachu', 'bulbasaur'];
-
-Pokemons.forEach((pokemon) => {
-  const pokemonObj = new Pokemon(pokemon);
-  pokemonObj.fetchPokemon();
-});
-
-const pop = new Popup(Pokemons[0]);
-pop.populateHtml();
-pop.closePopup();
-pop.sendComment();
+window.onload = () => {
+  fetchPokemon();
+  pokeCounter();
+};

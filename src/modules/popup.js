@@ -14,17 +14,21 @@ export default class Popup extends Pokemon {
     this.commentBtn = window.document.querySelector('#commentBtn');
     this.closeButton = window.document.getElementById('close');
     this.popup = window.document.querySelector('#popup');
+    this.heightP = window.document.getElementById('Height');
+    this.speciesP = window.document.getElementById('Species');
   }
 
   async populateHtml() {
-    this.populateTypes();
+    this.populatePokedata();
     this.populateComments();
   }
 
-  async populateTypes() {
+  async populatePokedata() {
     this.typesElement.innerHTML = '';
     await this.fetchPokemon().then(() => {
       this.title.innerText = this.pokemonName;
+      this.heightP.innerHTML = `Height: ${this.height}`;
+      this.speciesP.innerHTML = `Species: ${this.species}`;
       this.typesElement.innerHTML = '';
       this.img.src = this.picture;
       this.weightElement.innerText = `Weight: ${this.weight}`;
@@ -43,13 +47,13 @@ export default class Popup extends Pokemon {
       this.comments.forEach((comment) => {
         const userName = comment.username;
         const commentary = comment.comment;
-        const text = `${userName}: ${commentary}`;
+        const text = `${comment.creation_date} ${userName}: ${commentary}`;
         const li = document.createElement('li');
         li.innerText = text;
         this.commentsDiv.appendChild(li);
       });
     });
-    this.commentsCount.innerText = this.countComments();
+    this.commentsCount.innerText = `(${this.countComments()})`;
   }
 
   closePopup() {

@@ -21,13 +21,38 @@ body {
   cursor: pointer;
 }
 
-#container {
+#container,
+#commentContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+#pokemonImg {
+  max-height: 150px;
+}
+
 #pokemonName,
 #types > * {
   text-transform: capitalize;
+}
+
+#pokeData {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#commentsAndCount {
+  display: flex;
+  align-items: baseline;
+}
+
+#commentContainer > * {
+  margin: 5px;
+}
+
+#commentsTitle {
+  margin: 0;
 }

@@ -6,6 +6,8 @@ export default class Pokemon {
     this.commentsUrl = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/comments?item_id=${this.pokemonName}`;
     this.picture = '';
     this.weight = 0;
+    this.height = 0;
+    this.species = '';
     this.types = [];
     this.likes = 0;
     this.comments = [];
@@ -15,9 +17,11 @@ export default class Pokemon {
     await fetch(this.url)
       .then(async (response) => {
         await response.json().then((data) => {
-          this.picture = data.sprites.front_default;
+          this.picture = data.sprites.other['official-artwork'].front_default;
           this.weight = data.weight;
           this.types = data.types;
+          this.height = data.height;
+          this.species = data.species.name;
         });
       });
   }

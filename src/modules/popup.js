@@ -7,6 +7,7 @@ export default class Popup extends Pokemon {
     this.title = window.document.getElementById('pokemonName');
     this.weightElement = window.document.getElementById('Weight');
     this.typesElement = window.document.getElementById('types');
+    this.commentsCount = window.document.getElementById('commentsCount');
     this.commentsDiv = window.document.getElementById('comments');
     this.commentInput = window.document.getElementById('comment');
     this.userName = window.document.getElementById('userName');
@@ -45,9 +46,10 @@ export default class Popup extends Pokemon {
         const text = `${userName}: ${commentary}`;
         const li = document.createElement('li');
         li.innerText = text;
-        if (userName !== '' && commentary !== '') this.commentsDiv.appendChild(li);
+        this.commentsDiv.appendChild(li);
       });
     });
+    this.commentsCount.innerText = this.countComments();
   }
 
   closePopup() {

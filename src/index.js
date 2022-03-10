@@ -6,4 +6,3 @@ window.onload = () => {
     fetchPokemon();
     pokeCounter();
   };
-

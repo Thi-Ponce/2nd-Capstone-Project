@@ -38,9 +38,8 @@ export default function renderPokemon(pokeData) {
   commentButton.classList.add('comment');
   commentButton.innerText = 'Comment';
   commentButton.setAttribute('id', `${pokeData.id}`);
-  commentButton.addEventListener('click', () => {
+  commentButton.addEventListener('click', async () => {
     const pop = new Popup(pokeData.name);
-    pop.populateHtml();
     pop.showPopup();
     pop.closePopup();
     pop.sendComment();

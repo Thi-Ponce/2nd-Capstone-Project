@@ -20,7 +20,7 @@ export default class Popup extends Pokemon {
 
   async populateHtml() {
     this.populatePokedata();
-    this.populateComments();
+    this.populateCommentsAPI();
   }
 
   async populatePokedata() {
@@ -41,19 +41,23 @@ export default class Popup extends Pokemon {
     });
   }
 
-  async populateComments() {
-    this.commentsDiv.innerHTML = '';
+  async populateCommentsAPI() {
     await this.updateComments().then(() => {
-      this.comments.forEach((comment) => {
-        const userName = comment.username;
-        const commentary = comment.comment;
-        const text = `${comment.creation_date} ${userName}: ${commentary}`;
-        const li = document.createElement('li');
-        li.innerText = text;
-        this.commentsDiv.appendChild(li);
-      });
+      this.populateComments();
     });
     this.commentsCount.innerText = `(${this.countComments()})`;
+  }
+
+  populateComments() {
+    this.commentsDiv.innerHTML = '';
+    this.comments.forEach((comment) => {
+      const userName = comment.username;
+      const commentary = comment.comment;
+      const text = `${comment.creation_date} ${userName}: ${commentary}`;
+      const li = document.createElement('li');
+      li.innerText = text;
+      this.commentsDiv.appendChild(li);
+    });
   }
 
   closePopup() {
@@ -64,8 +68,10 @@ export default class Popup extends Pokemon {
     });
   }
 
-  showPopup() {
+  async showPopup() {
+    await this.populateHtml();
     this.popup.style.display = 'block';
+    document.body.style.overflow = 'hidden';
   }
 
   countComments() {
@@ -76,12 +82,19 @@ export default class Popup extends Pokemon {
     this.commentInput = window.document.getElementById('comment');
     this.userName = window.document.getElementById('userName');
     const { userName, commentInput } = this;
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${mm}-${dd}-${yyyy}`;
     const post = async () => { await this.postComment(userName.value, commentInput.value); };
-    const updateHtml = async () => { await this.populateComments(); };
+    const updateHtml = () => { this.populateComments(); };
     this.commentBtn.addEventListener('click', () => {
       if (userName.value !== '' && commentInput.value !== '') {
         post();
-        this.comments.push({ userName: userName.value, comment: commentInput.value });
+        this.comments.push({
+          creation_date: today, username: userName.value, comment: commentInput.value,
+        });
         updateHtml();
         userName.value = '';
         commentInput.value = '';

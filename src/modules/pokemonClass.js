@@ -14,7 +14,6 @@ export default class Pokemon {
   async fetchPokemon() {
     await fetch(this.url)
       .then(async (response) => {
-        console.log(response)
         await response.json().then((data) => {
           this.picture = data.sprites.front_default;
           this.weight = data.weight;

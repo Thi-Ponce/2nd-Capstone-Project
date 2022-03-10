@@ -43,6 +43,7 @@ export default function renderPokemon(pokeData) {
     pop.populateHtml();
     pop.showPopup();
     pop.closePopup();
+    pop.sendComment();
   });
   pokeContainer.append(imageContainer, pokeName, pokeNumber, likesContainer, commentButton);
 

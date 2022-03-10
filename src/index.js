@@ -1,4 +1,9 @@
 import './style.css';
 import { fetchPokemon} from './modules/displayPokemon';
+import pokeCounter from './modules/pokeCounter';
 
-fetchPokemon();
+window.onload = () => {
+    fetchPokemon();
+    pokeCounter();
+  };
+

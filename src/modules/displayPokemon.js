@@ -1,3 +1,7 @@
+import getLikes from './getLikes.js';
+import postLikes from './postLikes.js'
+import { pokeLikes } from './getLikes.js';
+
 export function fetchPokemon() {
 	fetch('https://pokeapi.co/api/v2/pokemon?limit=9')
 	.then(response => response.json())
@@ -10,6 +14,7 @@ export function fetchPokemon() {
 
 function fetchPokemonData(pokemon){
 	let url = pokemon.url 
+	getLikes(pokemon)
 	fetch(url)
 	.then(response => response.json())
 	.then(function(pokeData){
@@ -18,12 +23,12 @@ function fetchPokemonData(pokemon){
 	});
 }
 
-
 function renderPokemon(pokeData) {
 	let allPokemonContainer = document.getElementById('cards-container');
 	//create card
 	const pokeContainer = document.createElement('div');
 	pokeContainer.classList.add('card');
+	pokeContainer.setAttribute('id', 'pokeCard');
 	//insert info
 	const imageContainer = document.createElement('div');
 	imageContainer.classList.add('sprite-container');
@@ -41,9 +46,8 @@ function renderPokemon(pokeData) {
 	likesHeart.setAttribute('id', `${pokeData.id}`);
 	likesHeart.addEventListener('click', () => {
 		pokeData.likes+=1;
-		console.log(pokeData.likes);
 		likesCounter.innerHTML = pokeData.likes;
-		postLike(pokeData.likes, pokeData.name, window.Date);
+		postLikes(pokeData.id);
 	});
 	const likesCounter = document.createElement('p');
 	likesCounter.innerHTML = pokeData.likes;

@@ -3,18 +3,32 @@ export default class Pokemon {
     this.pokemonName = pokemonName;
     this.url = `https://pokeapi.co/api/v2/pokemon/${this.pokemonName}`;
     this.likesUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/likes/';
-    this.commentsUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/comments/';
-    this.picture = this.fetchPokemon().sprites.front_default;
-    this.weight = this.fetchPokemon().weight;
-    this.types = this.fetchPokemon().types;
+    this.commentsUrl = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/comments?item_id=${this.pokemonName}`;
+    this.picture = '';
+    this.weight = 0;
+    this.height = 0;
+    this.species = '';
+    this.types = [];
     this.likes = 0;
-    this.comments = {};
+    this.comments = [];
   }
 
   async fetchPokemon() {
-    const response = await fetch(this.url)
-      .then((response) => response.json());
-    return response;
+    await fetch(this.url)
+      .then(async (response) => {
+        await response.json().then((data) => {
+          this.picture = data.sprites.other['official-artwork'].front_default;
+          this.weight = data.weight;
+          this.types = data.types;
+          this.height = data.height;
+          this.species = data.species.name;
+        });
+      });
+  }
+
+  async getWeight() {
+    await this.fetchPokemon();
+    return this.weight;
   }
 
   async fetchLikes() {
@@ -47,19 +61,21 @@ export default class Pokemon {
   }
 
   async updateComments() {
-    this.comments = this.fetchComments();
+    this.comments = await this.fetchComments();
+    return this.comments;
   }
 
   async postComment(username, comment) {
-    const body = { pokemonName: this.pokemonName, username, comment };
-    fetch(this.commentsUrl, {
+    const body = {
+      item_id: this.pokemonName, username, comment,
+    };
+
+    return fetch(this.commentsUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+    });
   }
 }

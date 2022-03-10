@@ -67,8 +67,7 @@ export default class Popup extends Pokemon {
   }
 
   countComments() {
-    const count = this.updateComments().length;
-    return count;
+    return this.comments.length;
   }
 
   sendComment() {

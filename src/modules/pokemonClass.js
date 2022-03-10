@@ -8,7 +8,7 @@ export default class Pokemon {
     this.weight = 0;
     this.types = [];
     this.likes = 0;
-    this.comments = {};
+    this.comments = [];
   }
 
   async fetchPokemon() {

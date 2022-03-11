@@ -4,7 +4,6 @@
 
 > This is a simple page made by our group to showcase some pokemon, like them and add comments following the requirements from Microverse.
 
-
 ## Built With
 
 - HTML, CSS, Javascript, Webpack
@@ -15,7 +14,7 @@ https://drive.google.com/file/d/1tjDbhkwSDofGf_ElOcUa3XmCRhnljt5v/view?usp=shari
 
 ## Getting Started
 
-> To work on this project and see it live please run npm run build and npm start, after that feel free to code away!
+> To work on this project and see it live please run npm install, npm run build and npm start, after that feel free to code away!
 
 ## Authors
 

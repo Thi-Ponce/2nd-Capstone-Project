@@ -3,7 +3,7 @@ import { countLikes } from './likeCounter.js';
 import createPokeImage from './createImg.js';
 import { Popup, addPopup } from './popup.js';
 
-export default function renderPokemon(pokeData) {
+const renderPokemon = (pokeData) => {
   const allPokemonContainer = document.getElementById('cards-container');
   // create card
   const pokeContainer = document.createElement('div');
@@ -61,4 +61,6 @@ export default function renderPokemon(pokeData) {
   pokeContainer.append(imageContainer, pokeName, pokeNumber, likesContainer, commentButton);
 
   allPokemonContainer.appendChild(pokeContainer);
-}
+};
+
+export default renderPokemon;

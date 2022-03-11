@@ -1,21 +1,17 @@
 import renderPokemon from './renderingPokemon.js';
-/* import { countLikes } from './likeCounter.js'; */
 
-export function fetchPokemonData(pokemon) {
+export const fetchPokemonData = async (pokemon) => {
   const { url } = pokemon;
-  fetch(url)
-    .then((response) => response.json())
-    .then((pokeData) => {
-      renderPokemon(pokeData);
-    });
-}
+  const response = await fetch(url);
+  const data = await response.json();
+  renderPokemon(data);
+};
 
-export function fetchPokemon() {
-  fetch('https://pokeapi.co/api/v2/pokemon?limit=9')
-    .then((response) => response.json())
-    .then((allpokemon) => {
-      allpokemon.results.forEach((pokemon) => {
-        fetchPokemonData(pokemon);
-      });
-    });
-}
+export const fetchPokemon = async () => {
+  const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=9');
+  const jsonData = await response.json();
+  const allpokemon = await jsonData.results;
+  allpokemon.forEach((pokemon) => {
+    fetchPokemonData(pokemon);
+  });
+};

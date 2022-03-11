@@ -45,19 +45,22 @@ export default class Popup extends Pokemon {
     await this.updateComments().then(() => {
       this.populateComments();
     });
-    this.commentsCount.innerText = `(${this.countComments()})`;
   }
 
   populateComments() {
     this.commentsDiv.innerHTML = '';
-    this.comments.forEach((comment) => {
-      const userName = comment.username;
-      const commentary = comment.comment;
-      const text = `${comment.creation_date} ${userName}: ${commentary}`;
-      const li = document.createElement('li');
-      li.innerText = text;
-      this.commentsDiv.appendChild(li);
-    });
+    this.commentsCount.innerText = '0';
+    if (Array.isArray(this.comments)) {
+      this.comments.forEach((comment) => {
+        const userName = comment.username;
+        const commentary = comment.comment;
+        const text = `${comment.creation_date} ${userName}: ${commentary}`;
+        const li = document.createElement('li');
+        li.innerText = text;
+        this.commentsDiv.appendChild(li);
+      });
+      this.commentsCount.innerText = `(${this.countComments()})`;
+    }
   }
 
   closePopup() {
@@ -99,6 +102,9 @@ export default class Popup extends Pokemon {
         updateHtml();
         userName.value = '';
         commentInput.value = '';
+        if (Array.isArray(this.comments)) {
+          this.commentsCount.innerText = `(${this.countComments()})`;
+        }
       }
     });
   }

@@ -1,5 +1,3 @@
-export let totalLikes;
-
 export const getLikes = async () => {
   const likesData = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/likes');
   const allLikes = await likesData.json();

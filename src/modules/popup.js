@@ -65,6 +65,7 @@ export default class Popup extends Pokemon {
     const pop = this.popup;
     btn.addEventListener('click', () => {
       pop.style.display = 'none';
+      document.body.style.overflow = 'auto';
     });
   }
 

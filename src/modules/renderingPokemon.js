@@ -1,7 +1,7 @@
 import postLikes from './postLikes.js';
 import { countLikes } from './likeCounter.js';
 import createPokeImage from './createImg.js';
-import Popup from './popup.js';
+import { Popup, addPopup} from './popup.js';
 
 export default function renderPokemon(pokeData) {
   const allPokemonContainer = document.getElementById('cards-container');
@@ -39,10 +39,23 @@ export default function renderPokemon(pokeData) {
   commentButton.innerText = 'Comment';
   commentButton.setAttribute('id', `${pokeData.id}`);
   commentButton.addEventListener('click', async () => {
+    addPopup();
     const pop = new Popup(pokeData.name);
     pop.showPopup();
     pop.closePopup();
-    pop.sendComment();
+    pop.commentBtn.addEventListener('click', async () => {
+      pop.commentInput = window.document.getElementById('comment');
+      pop.userName = window.document.getElementById('userName');
+      await pop.populateCommentsAPI();
+      console.log(pop.comments);
+      if (pop.userName.value !== '' && pop.commentInput.value !== '') {
+        await pop.postComment(pop.userName.value, pop.commentInput.value)
+          .then(async () => { await pop.populateCommentsAPI(); console.log(pop.comments); });
+        pop.userName.value = '';
+        pop.commentInput.value = '';
+        console.log(pop.comments);
+      }
+    });
   });
   pokeContainer.append(imageContainer, pokeName, pokeNumber, likesContainer, commentButton);
 

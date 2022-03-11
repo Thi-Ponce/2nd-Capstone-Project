@@ -1,6 +1,6 @@
 import Pokemon from './pokemonClass.js';
 
-export default class Popup extends Pokemon {
+export class Popup extends Pokemon {
   constructor(pokemon) {
     super(pokemon);
     this.img = window.document.getElementById('pokemonImg');
@@ -44,20 +44,24 @@ export default class Popup extends Pokemon {
   async populateCommentsAPI() {
     await this.updateComments().then(() => {
       this.populateComments();
+      if (Array.isArray(this.comments)) this.commentsCount.innerText = `(${this.countComments()})`;
     });
-    this.commentsCount.innerText = `(${this.countComments()})`;
+    console.log(this.comments);
   }
 
   populateComments() {
     this.commentsDiv.innerHTML = '';
-    this.comments.forEach((comment) => {
-      const userName = comment.username;
-      const commentary = comment.comment;
-      const text = `${comment.creation_date} ${userName}: ${commentary}`;
-      const li = document.createElement('li');
-      li.innerText = text;
-      this.commentsDiv.appendChild(li);
-    });
+    this.commentsCount.innerText = '0';
+    if (Array.isArray(this.comments)) {
+      this.comments.forEach((comment) => {
+        const userName = comment.username;
+        const commentary = comment.comment;
+        const text = `${comment.creation_date} ${userName}: ${commentary}`;
+        const li = document.createElement('li');
+        li.innerText = text;
+        this.commentsDiv.appendChild(li);
+      });
+    }
   }
 
   closePopup() {
@@ -78,28 +82,36 @@ export default class Popup extends Pokemon {
   countComments() {
     return this.comments.length;
   }
+}
 
-  sendComment() {
-    this.commentInput = window.document.getElementById('comment');
-    this.userName = window.document.getElementById('userName');
-    const { userName, commentInput } = this;
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${mm}-${dd}-${yyyy}`;
-    const post = async () => { await this.postComment(userName.value, commentInput.value); };
-    const updateHtml = () => { this.populateComments(); };
-    this.commentBtn.addEventListener('click', () => {
-      if (userName.value !== '' && commentInput.value !== '') {
-        post();
-        this.comments.push({
-          creation_date: today, username: userName.value, comment: commentInput.value,
-        });
-        updateHtml();
-        userName.value = '';
-        commentInput.value = '';
-      }
-    });
-  }
+export function addPopup() {
+  const text = `
+      <span id="close">X</span>
+      <div id="container">
+        <img src="#" alt="pokemon" id="pokemonImg">
+        <h2 id="pokemonName"></h2>
+        <div id="pokeData">
+          <div class="column">
+            <p id="Weight">Weight:</p>
+            <p>Types:</p>
+            <ol id="types"></ol>
+          </div>
+          <div class="column">
+             <p id="Height">Height:</p>
+             <p id="Species">Species:</p>
+          </div>
+        </div>
+        <div id="commentsAndCount">
+          <h3 id="commentsTitle">Comments:</h3><span id="commentsCount"></span>
+        </div>
+        <div><ul id="comments"></ul></div>
+        <div id="commentContainer">
+          <h4>Add a comment</h4>
+          <input type="text" placeholder="Your name" id="userName">
+          <textarea name="comment" id="comment" placeholder="Your insights"></textarea>
+          <input type="button" value="Comment" id="commentBtn">     
+        </div>
+      </div>
+    `;
+  document.getElementById('popup').innerHTML = text;
 }

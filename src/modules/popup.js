@@ -90,7 +90,7 @@ export default class Popup extends Pokemon {
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
-    today = `${mm}-${dd}-${yyyy}`;
+    today = `${yyyy}-${mm}-${dd}`;
     const post = async () => { await this.postComment(userName.value, commentInput.value); };
     const updateHtml = () => { this.populateComments(); };
     this.commentBtn.addEventListener('click', () => {

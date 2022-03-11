@@ -1,11 +1,11 @@
 import renderPokemon from './renderingPokemon.js';
+import { countLikes}  from './likeCounter.js'
 
 export function fetchPokemonData(pokemon) {
   const { url } = pokemon;
   fetch(url)
     .then((response) => response.json())
     .then((pokeData) => {
-      pokeData.likes = 11;
       renderPokemon(pokeData);
     });
 }

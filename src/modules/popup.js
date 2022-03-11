@@ -46,7 +46,6 @@ export class Popup extends Pokemon {
       this.populateComments();
       if (Array.isArray(this.comments)) this.commentsCount.innerText = `(${this.countComments()})`;
     });
-    console.log(this.comments);
   }
 
   populateComments() {

@@ -1,7 +1,7 @@
 import postLikes from './postLikes.js';
-import { countLikes, totalLikes } from './likeCounter.js';
+import { countLikes } from './likeCounter.js';
 import createPokeImage from './createImg.js';
-import { Popup, addPopup} from './popup.js';
+import { Popup, addPopup } from './popup.js';
 
 export default function renderPokemon(pokeData) {
   const allPokemonContainer = document.getElementById('cards-container');

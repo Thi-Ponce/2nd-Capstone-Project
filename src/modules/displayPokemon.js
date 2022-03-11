@@ -1,5 +1,5 @@
 import renderPokemon from './renderingPokemon.js';
-import { countLikes}  from './likeCounter.js'
+/* import { countLikes } from './likeCounter.js'; */
 
 export function fetchPokemonData(pokemon) {
   const { url } = pokemon;

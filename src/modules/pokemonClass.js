@@ -3,7 +3,7 @@ export default class Pokemon {
     this.pokemonName = pokemonName;
     this.url = `https://pokeapi.co/api/v2/pokemon/${this.pokemonName}`;
     this.likesUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/8d5UQy3q00JntMkUFlri/likes/';
-    this.commentsUrl = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Pt3usID0228v5zceu2G0/comments?item_id=${this.pokemonName}`;
+    this.commentsUrl = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/FD3kn4HX0jzTtIsS3UYh/comments?item_id=${this.pokemonName}`;
     this.picture = '';
     this.weight = 0;
     this.height = 0;

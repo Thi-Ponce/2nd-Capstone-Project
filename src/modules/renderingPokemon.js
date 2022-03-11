@@ -1,5 +1,5 @@
 import postLikes from './postLikes.js';
-import { countLikes } from './likeCounter.js';
+import { countLikes, totalLikes } from './likeCounter.js';
 import createPokeImage from './createImg.js';
 import Popup from './popup.js';
 
@@ -26,9 +26,10 @@ export default function renderPokemon(pokeData) {
   likesHeart.setAttribute('id', `${pokeData.id}`);
   const likesCounter = document.createElement('p');
   likesHeart.addEventListener('click', () => {
-    pokeData.likes += 1;
-    likesCounter.innerHTML = pokeData.likes;
     postLikes(pokeData.id);
+    setTimeout(() => {
+      countLikes(pokeData.id, likesCounter);
+    }, 500);
   });
   countLikes(pokeData.id, likesCounter);
   likesContainer.append(likesHeart, likesCounter);

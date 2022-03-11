@@ -9,6 +9,10 @@
 
 - HTML, CSS, Javascript, Webpack
 
+## Video presentation
+
+https://drive.google.com/file/d/1tjDbhkwSDofGf_ElOcUa3XmCRhnljt5v/view?usp=sharing
+
 ## Getting Started
 
 > To work on this project and see it live please run npm run build and npm start, after that feel free to code away!
